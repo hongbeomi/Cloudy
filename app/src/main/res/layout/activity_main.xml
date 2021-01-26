@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed-medium"
                 android:gravity="center|start"
-                android:text="Blur Alpha"
+                android:text="Blur Radius"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="18sp" />
 

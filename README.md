@@ -90,9 +90,9 @@ cloud.get() // nullable bitmap
 
 ## Blur Algorithm
 
-- Stack Blur - Mario Klingemann
+- Stack Blur - Mario Klingemann [link](https://underdestruction.com/2004/02/25/stackblur-2004/)
 
-<img src="https://underdestruction.com/wordpress/wp-content/uploads/2016/02/StackBlur01.png" align="center" width="30%"></img>
+<img src="https://underdestruction.com/wordpress/wp-content/uploads/2016/02/StackBlur01.png" align="center" width="50%"></img>
 
 <br/>
 
