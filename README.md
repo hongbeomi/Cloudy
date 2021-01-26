@@ -44,7 +44,7 @@ dependencies {
 val cloud = Cloudy.with(this)
                 .from(binding.imageViewMainSample) // source view (any view)
                 .into(binding.textViewMain) // target view (any view)
-								.blur() // start blur
+                .blur() // start blur
 ```
 
 ### Color
@@ -64,11 +64,11 @@ cloud.radius(25f) // range is 0f .. 25f
 ```kotlin
 // vertical
 verticalScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-		cloud.onVerticalScroll(scrollY)                                      
+    cloud.onVerticalScroll(scrollY)                                      
 }
 // horizontal 
 horizontalScrollView.setOnScrollChangeListener { _, scrollX, _, _, _ ->
-		cloud.onHorizontalScroll(scrollX)                                      
+    cloud.onHorizontalScroll(scrollX)                                      
 }
 ```
 
