@@ -33,11 +33,15 @@ class Cloud(private val context: Context) {
     private var view: View? = null
     private var targetView: View? = null
     private var originalBitmap: Bitmap? = null
-    private var bluredBitmap: Bitmap? = null
+    private var blurredBitmap: Bitmap? = null
     private var isCleared = false
 
-    fun from(view: View) = apply {
+    internal fun from(view: View) = apply {
         this.view = view
+    }
+
+    internal fun into(targetView: View) = apply {
+        this.targetView = targetView
     }
 
     fun radius(radius: Float) = apply {
@@ -58,10 +62,6 @@ class Cloud(private val context: Context) {
         if (!isCleared) cropAndBlur()
     }
 
-    fun into(targetView: View) = apply {
-        this.targetView = targetView
-    }
-
     fun blur() {
         isCleared = false
         rs()
@@ -77,7 +77,7 @@ class Cloud(private val context: Context) {
     }
 
     fun get(): Bitmap? {
-        return bluredBitmap
+        return blurredBitmap
     }
 
     private fun rs() {
@@ -164,7 +164,7 @@ class Cloud(private val context: Context) {
                 scrollY
             }
 
-        bluredBitmap = Bitmap.createBitmap(
+        blurredBitmap = Bitmap.createBitmap(
             bitmap,
             targetView.left + calculatedScrollX,
             targetView.top + calculatedScrollY,
@@ -175,7 +175,7 @@ class Cloud(private val context: Context) {
     }
 
     private fun setBackground(targetView: View) {
-        val bitmap = bluredBitmap ?: return
+        val bitmap = blurredBitmap ?: return
         targetView.background = BitmapDrawable(context.resources, bitmap)
     }
 
