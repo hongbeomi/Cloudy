@@ -36,50 +36,6 @@ class Cloud(private val context: Context) {
     private var blurredBitmap: Bitmap? = null
     private var isCleared = false
 
-    internal fun from(view: View) = apply {
-        this.view = view
-    }
-
-    internal fun into(targetView: View) = apply {
-        this.targetView = targetView
-    }
-
-    fun radius(radius: Float) = apply {
-        this.radius = radius
-    }
-
-    fun color(@ColorInt color: Int) = apply {
-        this.color = color
-    }
-
-    fun onVerticalScroll(scrollY: Int) = apply {
-        this.scrollY = scrollY
-        if (!isCleared) cropAndBlur()
-    }
-
-    fun onHorizontalScroll(scrollX: Int) = apply {
-        this.scrollX = scrollX
-        if (!isCleared) cropAndBlur()
-    }
-
-    fun blur() {
-        isCleared = false
-        rs()
-        cropAndBlur()
-    }
-
-    fun clear() {
-        targetView?.apply {
-            alpha = 1f
-            background = null
-        }
-        isCleared = true
-    }
-
-    fun get(): Bitmap? {
-        return blurredBitmap
-    }
-
     private fun rs() {
         val pullBitmap = pull() ?: return
 
@@ -177,6 +133,50 @@ class Cloud(private val context: Context) {
     private fun setBackground(targetView: View) {
         val bitmap = blurredBitmap ?: return
         targetView.background = BitmapDrawable(context.resources, bitmap)
+    }
+
+    internal fun from(view: View) = apply {
+        this.view = view
+    }
+
+    internal fun into(targetView: View) = apply {
+        this.targetView = targetView
+    }
+
+    fun radius(radius: Float) = apply {
+        this.radius = radius
+    }
+
+    fun color(@ColorInt color: Int) = apply {
+        this.color = color
+    }
+
+    fun onVerticalScroll(scrollY: Int) = apply {
+        this.scrollY = scrollY
+        if (!isCleared) cropAndBlur()
+    }
+
+    fun onHorizontalScroll(scrollX: Int) = apply {
+        this.scrollX = scrollX
+        if (!isCleared) cropAndBlur()
+    }
+
+    fun blur() {
+        isCleared = false
+        rs()
+        cropAndBlur()
+    }
+
+    fun clear() {
+        targetView?.apply {
+            alpha = 1f
+            background = null
+        }
+        isCleared = true
+    }
+
+    fun get(): Bitmap? {
+        return blurredBitmap
     }
 
 }
