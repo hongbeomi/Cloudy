@@ -88,6 +88,14 @@ cloud.get() // nullable bitmap
 
 <br/>
 
+## Blur Algorithm
+
+- Stack Blur - Mario Klingemann
+
+<img src="https://underdestruction.com/wordpress/wp-content/uploads/2016/02/StackBlur01.png="30%"></img>
+
+<br/>
+
 ## 🙌 Thanks
 
 - [Blurry] wasabeef -  https://github.com/wasabeef/Blurry
