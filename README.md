@@ -91,6 +91,7 @@ cloud.get() // nullable bitmap
 ## 🙌 Thanks
 
 - [Blurry] wasabeef -  https://github.com/wasabeef/Blurry
+- [BlurSample] charlezz - https://github.com/Charlezz/BlurSample
 
 <br/>
 
