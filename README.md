@@ -26,7 +26,7 @@ allprojects {
 
 And add a this code to your **module**'s `build.gradle` file.
 
-```
+```groovy
 dependencies {
     implementation 'com.github.hongbeomi:Cloudy:Tag'
 }
@@ -36,8 +36,79 @@ dependencies {
 
 ## 👀 Usage
 
+### Basic Example
+
+```kotlin
+val cloud = Cloudy.with(this)
+                .from(binding.imageViewMainSample) // source view (any view)
+                .into(binding.textViewMain) // target view (any view)
+								.blur()
+```
+
+### Color
+
+```kotlin
+cloud.color(Color.CYAN) // @ColorInt
+```
+
+### Radius
+
+```kotlin
+cloud.radius(25f) // range is 0f .. 25f
+```
+
+### Scroll Changed Listener
+
+```kotlin
+// vertical
+verticalScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+		cloud.onVerticalScroll(scrollY)                                      
+}
+// horizontal 
+horizontalScrollView.setOnScrollChangeListener { _, scrollX, _, _, _ ->
+		cloud.onHorizontalScroll(scrollX)                                      
+}
+```
+
+### Clear
+
+```kotlin
+// target view background = null
+cloud.clear()
+```
+
+### Get blurred bitmap
+
+```kotlin
+cloud.get() // nullable
+```
+
+<br/>
+
+## 🌟 Find this project useful?
+
+Support it by joining [stargazers](https://github.com/hongbeomi/Cloudy/stargazers) for this repository
+
 <br/>
 
 ## 📝 License
+
+```
+ Copyright [2021] [Hongbeom Ahn]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+```
+
+
 
 ### 
