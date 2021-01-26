@@ -108,6 +108,7 @@ class Cloud(private val context: Context) {
     }
 
     fun radius(radius: Float) = apply {
+        println(radius.toString())
         this.radius = radius
         if (!isCleared) {
             stackBlur()

@@ -50,7 +50,7 @@ val cloud = Cloudy.with(this)
 ### Start blur
 
 ```kotlin
-cloud.blur() // start blur
+cloud.blur() // start blurgi
 ```
 
 ### Color
@@ -62,7 +62,7 @@ cloud.color(Color.CYAN) // @ColorInt
 ### Radius
 
 ```kotlin
-cloud.radius(25f) // range is 0f .. 25f
+cloud.radius(25f) // range is 0f .. 200f
 ```
 
 ### Scroll Changed Listener
