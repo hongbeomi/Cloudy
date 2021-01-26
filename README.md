@@ -94,6 +94,12 @@ Support it by joining [stargazers](https://github.com/hongbeomi/Cloudy/stargazer
 
 <br/>
 
+## 🙌 Thanks
+
+- [Blurry] wasabeef -  https://github.com/wasabeef/Blurry
+
+<br/>
+
 ## 📝 License
 
 ```
