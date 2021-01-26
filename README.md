@@ -92,9 +92,7 @@ cloud.get() // nullable bitmap
 
 - Stack Blur - Mario Klingemann
 
-```html
 <img src="https://underdestruction.com/wordpress/wp-content/uploads/2016/02/StackBlur01.png" align="center" width="30%"></img>
-```
 
 <br/>
 
