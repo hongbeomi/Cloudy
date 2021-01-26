@@ -20,7 +20,6 @@ class Cloud(private val context: Context) {
     private var radius = DEFAULT_RADIUS
         set(value) {
             field = when {
-                value > 25f -> DEFAULT_RADIUS
                 value < 0f -> 0f
                 else -> value
             }
