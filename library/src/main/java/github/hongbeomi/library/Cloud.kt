@@ -3,9 +3,6 @@ package github.hongbeomi.library
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
-import android.os.Build
-import android.renderscript.*
-import android.renderscript.RenderScript.RSMessageHandler
 import android.view.View
 import androidx.annotation.ColorInt
 
@@ -17,6 +14,9 @@ class Cloud(private val context: Context) {
         private const val DEFAULT_COLOR = Color.TRANSPARENT
     }
 
+    private val blurNative = StackBlurNative()
+    @ColorInt
+    private var color = DEFAULT_COLOR
     private var radius = DEFAULT_RADIUS
         set(value) {
             field = when {
@@ -28,51 +28,16 @@ class Cloud(private val context: Context) {
     private var scrollY: Int = 0
     private var scrollX: Int = 0
 
-    @ColorInt
-    private var color = DEFAULT_COLOR
     private var view: View? = null
     private var targetView: View? = null
+
     private var originalBitmap: Bitmap? = null
     private var blurredBitmap: Bitmap? = null
     private var isCleared = false
 
-    private fun rs() {
+    private fun stackBlur() {
         val pullBitmap = pull() ?: return
-
-        val rs = RenderScript.create(context)
-        rs.messageHandler = RSMessageHandler()
-
-        val blurRadius = radius
-        val width = pullBitmap.width
-        val height = pullBitmap.height
-
-        val bitmapType: Type = Type.Builder(rs, Element.RGBA_8888(rs))
-            .setX(width)
-            .setY(height)
-            .setMipmaps(false)
-            .create()
-
-        val allocation = Allocation.createTyped(rs, bitmapType)
-        val blurScript = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs))
-
-        allocation.copyFrom(pullBitmap)
-
-        blurScript.apply {
-            setInput(allocation)
-            setRadius(blurRadius)
-            forEach(allocation)
-        }
-        allocation.copyTo(pullBitmap)
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            RenderScript.releaseAllContexts()
-        } else {
-            rs.destroy()
-        }
-        allocation.destroy()
-        blurScript.destroy()
-
-        originalBitmap = pullBitmap
+        originalBitmap = blurNative.blur(pullBitmap, radius.toInt())
     }
 
     private fun pull(): Bitmap? {
@@ -145,6 +110,10 @@ class Cloud(private val context: Context) {
 
     fun radius(radius: Float) = apply {
         this.radius = radius
+        if (!isCleared) {
+            stackBlur()
+            cropAndBlur()
+        }
     }
 
     fun color(@ColorInt color: Int) = apply {
@@ -163,15 +132,12 @@ class Cloud(private val context: Context) {
 
     fun blur() {
         isCleared = false
-        rs()
+        stackBlur()
         cropAndBlur()
     }
 
     fun clear() {
-        targetView?.apply {
-            alpha = 1f
-            background = null
-        }
+        targetView?.background = null
         isCleared = true
     }
 

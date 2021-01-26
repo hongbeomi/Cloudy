@@ -27,8 +27,9 @@ class MainActivity : AppCompatActivity() {
         }
         binding.seekBarMainBlur.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                binding.textViewMain.alpha = (progress.toFloat() / 100)
+                cloud.radius(progress.toFloat() / 4f)
             }
+
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
