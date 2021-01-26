@@ -11,7 +11,9 @@
 
 ## ⚡️ Include project
 
-### Gradle [![](https://jitpack.io/v/hongbeomi/Cloudy.svg)](https://jitpack.io/#hongbeomi/Cloudy)
+### Gradle 
+
+### [![](https://jitpack.io/v/hongbeomi/Cloudy.svg)](https://jitpack.io/#hongbeomi/Cloudy)
 
 Add it in your **root** build.gradle at the end of repositories:
 
@@ -42,7 +44,7 @@ dependencies {
 val cloud = Cloudy.with(this)
                 .from(binding.imageViewMainSample) // source view (any view)
                 .into(binding.textViewMain) // target view (any view)
-								.blur()
+								.blur() // start blur
 ```
 
 ### Color
@@ -80,7 +82,7 @@ cloud.clear()
 ### Get blurred bitmap
 
 ```kotlin
-cloud.get() // nullable
+cloud.get() // nullable bitmap
 ```
 
 <br/>
