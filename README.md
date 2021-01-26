@@ -45,7 +45,12 @@ dependencies {
 val cloud = Cloudy.with(this)
                 .from(binding.imageViewMainSample) // source view (any view)
                 .into(binding.textViewMain) // target view (any view)
-                .blur() // start blur
+```
+
+### Start blur
+
+```kotlin
+cloud.blur() // start blur
 ```
 
 ### Color
