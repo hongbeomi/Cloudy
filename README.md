@@ -1,6 +1,7 @@
 # <p align="center">Cloudy</p>
 <p align="center">
 <img alt="api" src="https://img.shields.io/badge/API-21%2B-green?logo=android"/>
+<img alt="api" src="https://img.shields.io/github/workflow/status/hongbeomi/Cloudy/Android%20CI?color=dark%20green"/>
 <img alt="license" src="https://img.shields.io/github/license/hongbeomi/cloudy?color=blue&logo=apache"/>
 </p>
 <p align="center">Cloudy is help apply blur and filters to any view</p>
