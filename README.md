@@ -43,8 +43,8 @@ dependencies {
 
 ```kotlin
 val cloud = Cloudy.with(this)
-                .from(binding.imageViewMainSample) // source view (any view)
-                .into(binding.textViewMain) // target view (any view)
+                .from(imageView) // source view (any view)
+                .into(textView) // target view (any view)
 ```
 
 ### Start blur
