@@ -3,6 +3,7 @@ package github.hongbeomi.library
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
+import android.util.Log
 import android.view.View
 import androidx.annotation.ColorInt
 
@@ -15,6 +16,7 @@ class Cloud(private val context: Context) {
     }
 
     private val blurNative = StackBlurNative()
+
     @ColorInt
     private var color = DEFAULT_COLOR
     private var radius = DEFAULT_RADIUS
@@ -30,13 +32,18 @@ class Cloud(private val context: Context) {
     private var view: View? = null
     private var targetView: View? = null
 
-    private var originalBitmap: Bitmap? = null
     private var blurredBitmap: Bitmap? = null
+    private var croppedBitmap: Bitmap? = null
+    private var pullBitmap: Bitmap? = null
     private var isCleared = false
 
     private fun stackBlur() {
-        val pullBitmap = pull() ?: return
-        originalBitmap = blurNative.blur(pullBitmap, radius.toInt())
+        if (pullBitmap == null) {
+            pull()
+        }
+        pullBitmap?.let {
+            blurredBitmap = blurNative.blur(it, radius.toInt())
+        }
     }
 
     private fun pull(): Bitmap? {
@@ -63,13 +70,13 @@ class Cloud(private val context: Context) {
         view.draw(canvas)
 
         canvas.drawBitmap(bitmap, 0f, 0f, paint)
-
+        pullBitmap = bitmap
         return bitmap
     }
 
     private fun cropAndBlur() {
         val targetView = targetView ?: return
-        val bitmap = originalBitmap ?: return
+        val bitmap = blurredBitmap ?: return
         val calculatedScrollX =
             if (scrollX < 0 || ((scrollX + targetView.left + targetView.width) > bitmap.width)) {
                 0
@@ -84,19 +91,34 @@ class Cloud(private val context: Context) {
                 scrollY
             }
 
-        blurredBitmap = Bitmap.createBitmap(
+        croppedBitmap = Bitmap.createBitmap(
             bitmap,
             targetView.left + calculatedScrollX,
             targetView.top + calculatedScrollY,
             targetView.width,
             targetView.height
         )
-        setBackground(targetView)
+        setBackground()
     }
 
-    private fun setBackground(targetView: View) {
-        val bitmap = blurredBitmap ?: return
-        targetView.background = BitmapDrawable(context.resources, bitmap)
+    private fun release() {
+        pullBitmap?.let {
+            it.recycle()
+            pullBitmap = null
+        }
+        croppedBitmap?.let {
+            it.recycle()
+            croppedBitmap = null
+        }
+        blurredBitmap?.let {
+            it.recycle()
+            blurredBitmap = null
+        }
+    }
+
+    private fun setBackground() {
+        val bitmap = croppedBitmap ?: return
+        targetView?.background = BitmapDrawable(context.resources, bitmap)
     }
 
     internal fun from(view: View) = apply {
@@ -108,7 +130,6 @@ class Cloud(private val context: Context) {
     }
 
     fun radius(radius: Float) = apply {
-        println(radius.toString())
         this.radius = radius
         if (!isCleared) {
             stackBlur()
@@ -139,10 +160,11 @@ class Cloud(private val context: Context) {
     fun clear() {
         targetView?.background = null
         isCleared = true
+        release()
     }
 
     fun get(): Bitmap? {
-        return blurredBitmap
+        return croppedBitmap
     }
 
 }
