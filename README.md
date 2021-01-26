@@ -88,15 +88,15 @@ cloud.get() // nullable bitmap
 
 <br/>
 
-## 🌟 Find this project useful?
-
-Support it by joining [stargazers](https://github.com/hongbeomi/Cloudy/stargazers) for this repository
-
-<br/>
-
 ## 🙌 Thanks
 
 - [Blurry] wasabeef -  https://github.com/wasabeef/Blurry
+
+<br/>
+
+## 🌟 Find this project useful?
+
+Support it by joining [stargazers](https://github.com/hongbeomi/Cloudy/stargazers) for this repository
 
 <br/>
 
