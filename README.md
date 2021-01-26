@@ -6,7 +6,7 @@
 </p>
 <p align="center">☁️ Cloudy is help apply blur and filters to any view</p>
 
-<img src="https://github.com/hongbeomi/Cloudy/blob/master/image/sample_cloudy.gif" align="left" width="30%"></img>  <img src="https://github.com/hongbeomi/Cloudy/blob/master/image/cloudy_blue.png" align="center" width="30%"></img>  <img src="https://github.com/hongbeomi/Cloudy/blob/master/image/cloudy_darkgray.png" align="right" width="30%"></img> 
+<img src="https://github.com/hongbeomi/Cloudy/blob/master/image/sample_cloudy_video.gif" align="left" width="30%"></img>  <img src="https://github.com/hongbeomi/Cloudy/blob/master/image/cloudy_blue.png" align="center" width="30%"></img>  <img src="https://github.com/hongbeomi/Cloudy/blob/master/image/cloudy_darkgray.png" align="right" width="30%"></img> 
 
 <br/>
 
