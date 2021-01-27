@@ -42,7 +42,7 @@ dependencies {
 ### Basic Example
 
 ```kotlin
-val cloud = Cloudy.with(this)
+val cloud = Cloudy.with(this) // context
                 .from(imageView) // source view (any view)
                 .into(textView) // target view (any view)
 ```
