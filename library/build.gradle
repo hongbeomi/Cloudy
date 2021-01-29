@@ -4,7 +4,7 @@ plugins {
 }
 apply plugin: 'com.github.dcendents.android-maven'
 group = 'github.hongbeomi.cloudy'
-version = '1.0.1'
+version = '1.0.2'
 
 android {
     compileSdkVersion 30
@@ -14,7 +14,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
-        versionName "1.0.1"
+        versionName "1.0.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
