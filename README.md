@@ -6,7 +6,7 @@
 </p>
 <p align="center">☁️ Cloudy is help apply blur and filters to any view</p>
 
-<img src="https://github.com/hongbeomi/Cloudy/blob/master/image/sample_cloudy_video.gif" align="left" width="30%"></img>  <img src="https://github.com/hongbeomi/Cloudy/blob/master/image/cloudy_blue.png" align="center" width="30%"></img>  <img src="https://github.com/hongbeomi/Cloudy/blob/master/image/cloudy_darkgray.png" align="right" width="30%"></img> 
+<img src="https://github.com/hongbeomi/Cloudy/blob/master/image/sample_cloudy.gif" align="left" width="30%"></img>  <img src="https://github.com/hongbeomi/Cloudy/blob/master/image/sample_white.png" align="center" width="30%"></img>  <img src="https://github.com/hongbeomi/Cloudy/blob/master/image/sample_gray.png" align="right" width="30%"></img> 
 
 <br/>
 
@@ -43,23 +43,29 @@ dependencies {
 
 ```kotlin
 val cloud = Cloudy.with(this) // context
-                .from(imageView) // source view (any view)
-                .into(textView) // target view (any view)
+    // source view (any view) isPreBlur If you specify true, it starts immediately.
+    .from(imageView, isPreBlur = true) 
+    // recommend argb (@ColorInt)
+    .color(Color.parseColor("#50ffffff")) 
+    // set radius
+    .radius(200f)
+    // target view (any view)
+    .into(textView) 
 ```
 
-### Start blur
+### Lazy start blur
 
 ```kotlin
-cloud.blur() // start blurgi
+cloud.blur() // start blur
 ```
 
-### Color
+### Lazy change Color
 
 ```kotlin
 cloud.color(Color.CYAN) // @ColorInt
 ```
 
-### Radius
+### Lazy change Radius
 
 ```kotlin
 cloud.radius(25f) // range is 0f .. 200f
