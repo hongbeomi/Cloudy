@@ -15,19 +15,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val cloud = Cloudy
-                .with(this)
-                .from(binding.imageViewMainSample)
-                .into(binding.textViewMain)
+            .with(this)
+            .from(binding.viewMainSource, true)
+            .into(binding.viewMainTarget)
 
-        binding.switchMainBlur.setOnCheckedChangeListener { _, isChecked ->
-            when (isChecked) {
-                true -> cloud.blur()
-                false -> cloud.clear()
-            }
-        }
         binding.seekBarMainBlur.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                cloud.radius(progress.toFloat() * 2f)
+                cloud.changeRadius(progress.toFloat() * 2f)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}

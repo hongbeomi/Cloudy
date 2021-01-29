@@ -3,15 +3,15 @@ package github.hongbeomi.library
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
-import android.util.Log
 import android.view.View
+import android.view.ViewTreeObserver
 import androidx.annotation.ColorInt
 
 
 class Cloud(private val context: Context) {
 
     companion object {
-        private const val DEFAULT_RADIUS = 25f
+        private const val DEFAULT_RADIUS = 200f
         private const val DEFAULT_COLOR = Color.TRANSPARENT
     }
 
@@ -29,7 +29,7 @@ class Cloud(private val context: Context) {
     private var scrollY: Int = 0
     private var scrollX: Int = 0
 
-    private var view: View? = null
+    private var sourceView: View? = null
     private var targetView: View? = null
 
     private var blurredBitmap: Bitmap? = null
@@ -47,7 +47,7 @@ class Cloud(private val context: Context) {
     }
 
     private fun pull(): Bitmap? {
-        val view = this.view ?: return null
+        val view = this.sourceView ?: return null
         if (view.measuredWidth == 0 || view.measuredHeight == 0) {
             return null
         }
@@ -59,10 +59,10 @@ class Cloud(private val context: Context) {
         )
         val canvas = Canvas(bitmap)
         val paint = Paint().apply {
-            flags = Paint.FILTER_BITMAP_FLAG
+            flags = Paint.FILTER_BITMAP_FLAG or Paint.ANTI_ALIAS_FLAG
             colorFilter = PorterDuffColorFilter(
                 this@Cloud.color,
-                PorterDuff.Mode.MULTIPLY
+                PorterDuff.Mode.SRC_ATOP
             )
         }
 
@@ -90,7 +90,6 @@ class Cloud(private val context: Context) {
             } else {
                 scrollY
             }
-
         croppedBitmap = Bitmap.createBitmap(
             bitmap,
             targetView.left + calculatedScrollX,
@@ -121,24 +120,40 @@ class Cloud(private val context: Context) {
         targetView?.background = BitmapDrawable(context.resources, bitmap)
     }
 
-    internal fun from(view: View) = apply {
-        this.view = view
+    private fun viewTreeObserver() {
+        if(sourceView?.viewTreeObserver?.isAlive == true) {
+            sourceView?.viewTreeObserver?.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    blur()
+                    sourceView?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
+                }
+            })
+        }
+    }
+
+    internal fun from(view: View, isPreBlur: Boolean) = apply {
+        this.sourceView = view
+        if (isPreBlur) viewTreeObserver()
     }
 
     internal fun into(targetView: View) = apply {
         this.targetView = targetView
     }
 
-    fun radius(radius: Float) = apply {
+    internal fun radius(radius: Float) = apply {
+        this.radius = radius
+    }
+
+    internal fun color(@ColorInt color: Int) = apply {
+        this.color = color
+    }
+
+    fun changeRadius(radius: Float) = apply {
         this.radius = radius
         if (!isCleared) {
             stackBlur()
             cropAndBlur()
         }
-    }
-
-    fun color(@ColorInt color: Int) = apply {
-        this.color = color
     }
 
     fun onVerticalScroll(scrollY: Int) = apply {
